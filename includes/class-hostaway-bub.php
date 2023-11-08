@@ -101,6 +101,7 @@ class Hostaway_Bub {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-i18n.php';
+		require_once plugin_dir_path( dirname (__FILE__ ) ) . 'includes/class-hostaway-api.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-hostaway-bub-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-hostaway-bub-public.php';
 

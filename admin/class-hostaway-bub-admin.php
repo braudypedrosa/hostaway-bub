@@ -78,7 +78,15 @@ class Hostaway_Bub_Admin {
 		$client_id = isset($_POST['client_id']) ? $_POST['client_id'] : get_option('client_id');
 		$client_secret = isset($_POST['client_secret']) ? $_POST['client_secret'] : get_option('client_secret');
 
-		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=success");
+		if($client_id != '' || $client_secret != '') {
+			update_option('hostaway_client_id', $client_id);
+			update_option('hostaway_client_secret', $client_secret);
+
+			$api = new Hostaway_API($client_id, $client_secret);
+			$response = $api->generateToken();
+		} 
+
+		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=".$response['status']."&msg=".$response['message']);
 		exit;
 	 }
 
