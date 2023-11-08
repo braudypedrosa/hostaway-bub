@@ -129,4 +129,25 @@ class Hostaway_API extends Hostaway_API_HELPER {
             echo 'Error: ' .$e->getMessage();
         }
     }
+
+    private function generateLocalProperty($listing_data) {
+        global $wpdb;
+
+        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'listing_id' AND meta_value='".$listing_data['listing_id']."'";
+
+        $result = $wpdb->get_results($sql,ARRAY_A);
+        $post_id = $result[0]['post_id'];
+
+        // add listing if search returns null
+        if($post_id == null) {
+            $post_id = wp_insert_post(array(
+                'post_title'=> $listing_data['shortname'],
+                'post_content' => $listing_data['description'],
+                'post_type'=> 'guesty_listings',
+                'post_status'=> 'publish'
+            ));
+        } else { // update logic heregi
+
+        }
+    }
 }
