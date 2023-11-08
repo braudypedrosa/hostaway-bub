@@ -1,4 +1,24 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+.bub-container .bub-wrapper .bub-settings h1 {
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.bub-container .bub-wrapper .bub-settings form .input-group label {
+    display: block;
+    font-weight: bold;
+    line-height: 3em;
+}
+
+.bub-container .bub-wrapper .bub-settings form .input-group input {
+    min-width: 400px;
+}
+
+.bub-container .bub-wrapper .bub-settings form .input-group span {
+    display: block;
+    font-size: 12px;
+    line-height: 2em;
+}
+
+.notice, div.error, div.updated {
+    margin-left: 0;
+}

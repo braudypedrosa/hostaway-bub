@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://https://www.buildupbookings.com/
+ * @link              https://www.buildupbookings.com/
  * @since             1.0.0
  * @package           Hostaway_Bub
  *
  * @wordpress-plugin
- * Plugin Name:       Hostaway by BUB
- * Plugin URI:        https://https://www.buildupbookings.com/
+ * Plugin Name:       Hostaway by BuildUp Bookings
+ * Plugin URI:        https://www.buildupbookings.com/
  * Description:       A lightweight plugin that integrates with the Hostaway booking engine.
  * Version:           1.0.0
- * Author:            Braudy Pedrosa
- * Author URI:        https://https://www.buildupbookings.com//
+ * Author:            BuildUp Bookings
+ * Author URI:        https://www.buildupbookings.com//
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       hostaway-bub

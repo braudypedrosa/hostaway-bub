@@ -99,27 +99,9 @@ class Hostaway_Bub {
 	 */
 	private function load_dependencies() {
 
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-hostaway-bub-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-hostaway-bub-public.php';
 
 		$this->loader = new Hostaway_Bub_Loader();
@@ -154,8 +136,12 @@ class Hostaway_Bub {
 
 		$plugin_admin = new Hostaway_Bub_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'init', $plugin_admin, 'post_type_init' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_filter( 'admin_menu', $plugin_admin, 'menu_init' );
+		$this->loader->add_action( 'admin_post_save_hostaway_settings', $plugin_admin, 'save_menu' );
+		$this->loader->add_filter( 'plugin_action_links_hostaway-bub/hostaway-bub.php', $plugin_admin, 'add_plugin_links' );
 
 	}
 

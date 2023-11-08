@@ -22,6 +22,9 @@
  */
 class Hostaway_Bub_Admin {
 
+	const API_ROOT = 'https://api.hostaway.com/v1/';
+	const TEST_KEY = 'bfed3b7c5c9c0fcb2e0287ece074b0c8066dc25937de5487c4f4eca50e94ab99';
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -55,49 +58,98 @@ class Hostaway_Bub_Admin {
 	}
 
 	/**
+	 * Register the menu items in the admin area
+	 */
+	 public function menu_init() {
+		add_submenu_page(
+			'edit.php?post_type=hostaway_bub',
+			__( 'Settings', 'textdomain' ),
+			'Settings',
+			'manage_options',
+			'hostaway_settings',
+			function(){
+				include_once(plugin_dir_path(dirname(__FILE__)) . 'admin/partials/hostaway-bub-admin-display.php');
+			},
+		); 
+	 }
+
+	 public function save_menu() {
+
+		$client_id = isset($_POST['client_id']) ? $_POST['client_id'] : get_option('client_id');
+		$client_secret = isset($_POST['client_secret']) ? $_POST['client_secret'] : get_option('client_secret');
+
+		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=success");
+		exit;
+	 }
+
+
+	 public function post_type_init() {
+
+		register_post_type( 'hostaway_bub',
+
+			array('labels' => array(
+					'name' => __('Hostaway Listings', 'jointswp'), /* This is the Title of the Group */
+					'singular_name' => __('Listing', 'jointswp'), /* This is the individual type */
+					'all_items' => __('All Listings', 'jointswp'), /* the all items menu item */
+					'add_new' => __('Add New Listing', 'jointswp'), /* The add new menu item */
+					'add_new_item' => __('Add New Listing', 'jointswp'), /* Add New Display Title */
+					'edit' => __( 'Edit Listing', 'jointswp' ), /* Edit Dialog */
+					'edit_item' => __('Edit Listing', 'jointswp'), /* Edit Display Title */
+					'new_item' => __('New Listing', 'jointswp'), /* New Display Title */
+					'view_item' => __('View Listing', 'jointswp'), /* View Display Title */
+					'search_items' => __('Search', 'jointswp'), /* Search Custom Type Title */
+					'not_found' =>  __('Nothing found in the Database.', 'jointswp'), /* This displays if there are no entries yet */
+					'not_found_in_trash' => __('Nothing found in Trash', 'jointswp'), /* This displays if there is nothing in the trash */
+					'parent_item_colon' => ''
+				), /* end of arrays */
+				'public' => true,
+				'publicly_queryable' => true,
+				'exclude_from_search' => false,
+				'show_ui' => true,
+				'query_var' => true,
+				'menu_position' => 8, /* this is what order you want it to appear in on the left hand side menu */
+				'menu_icon' => 'dashicons-store', /* the icon for the custom post type menu. uses built-in dashicons (CSS class name) */
+				'rewrite'	=> array( 'slug' => 'property', 'with_front' => true ), /* you can specify its url slug */
+				'has_archive' => 'properties', /* you can rename the slug here */
+				'capability_type' => 'post',
+				'hierarchical' => false,
+				/* the next one is important, it tells what's enabled in the post editor */
+				'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields'),
+				'taxonomies' => array('post_tag')	
+
+			) /* end of options */
+
+		); /* end of register post type */
+	 }
+
+	/**
 	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Hostaway_Bub_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Hostaway_Bub_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/hostaway-bub-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Hostaway_Bub_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Hostaway_Bub_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/hostaway-bub-admin.js', array( 'jquery' ), $this->version, false );
+	}
 
+	public function add_plugin_links($links)
+	{
+			$url = esc_url( add_query_arg('page', 'hostaway_settings', get_admin_url() . 'admin.php') );
+
+			// Create the link.
+			$settings_link = "<a href='$url'>" . __( 'Settings' ) . "</a>";
+
+			// Adds the link to the end of the array.
+			array_push(
+					$links,
+					$settings_link
+			);
+
+			return $links;
 	}
 
 }
