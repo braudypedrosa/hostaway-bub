@@ -84,7 +84,10 @@ class Hostaway_Bub_Admin {
 
 			$api = new Hostaway_API($client_id, $client_secret);
 			$response = $api->generateToken();
-		} 
+		}
+		
+		$response = $api->syncProperties();
+		
 
 		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=".$response['status']."&msg=".$response['message']);
 		exit;
