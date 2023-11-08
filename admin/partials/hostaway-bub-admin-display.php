@@ -15,7 +15,6 @@
 
 $client_id = get_option('hostaway_client_id') ? get_option('hostaway_client_id') : '';
 $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_client_secret') : '';
-
 ?>
 
 <div class="bub-container">

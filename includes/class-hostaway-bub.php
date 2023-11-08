@@ -99,6 +99,29 @@ class Hostaway_Bub {
 	 */
 	private function load_dependencies() {
 
+		define( 'HOSTAWAY_ACF_PATH', plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/advanced-custom-fields/' );
+		define( 'HOSTAWAY_ACF_URL', plugin_dir_url( dirname( __FILE__ ) ) . 'admin/library/advanced-custom-fields/' );
+
+		include_once( HOSTAWAY_ACF_PATH . 'acf.php' );
+
+		add_filter('acf/settings/url', 'plugin_name_settings_url');
+		function plugin_name_settings_url( $url ) {
+			return HOSTAWAY_ACF_URL;
+		}
+
+		add_filter('acf/settings/save_json', 'hostaway_json_save_point');
+		function hostaway_json_save_point( $path ) {
+			$path = plugin_dir_path( dirname( __FILE__ ) ) . '/acf-json';
+			return $path;
+		}
+
+		add_filter('acf/settings/load_json', 'hostaway_json_load_point');
+		function hostaway_json_load_point( $paths ) {        
+			unset($paths[0]);
+			$paths[] = plugin_dir_path( dirname( __FILE__ ) ) . '/acf-json';
+			return $paths;
+		}
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-i18n.php';
 		require_once plugin_dir_path( dirname (__FILE__ ) ) . 'includes/class-hostaway-api.php';
@@ -143,8 +166,9 @@ class Hostaway_Bub {
 		$this->loader->add_filter( 'admin_menu', $plugin_admin, 'menu_init' );
 		$this->loader->add_action( 'admin_post_save_hostaway_settings', $plugin_admin, 'save_menu' );
 		$this->loader->add_filter( 'plugin_action_links_hostaway-bub/hostaway-bub.php', $plugin_admin, 'add_plugin_links' );
-
+		
 	}
+
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
