@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap');
+
+
+.listings-filter {
+    padding-left: 0;
+    margin-top: 50px;
+    li {
+        display: inline-block;
+        caret-color: transparent;
+        height: 32px;
+        font-weight: 700;
+        border-radius: 32px;
+        line-height: 1.3em;
+        box-sizing: border-box;
+        padding: 3px 16px;
+        margin: 0px 8px 8px 0px;
+        cursor: pointer;
+        border: 1px solid rgb(144, 156, 164);
+
+        &.active {
+            border: 1px solid rgb(60, 210, 203);
+            background-color: rgb(60, 210, 203);
+            color: rgb(255, 255, 255);
+            
+        }
+    }
+}
+
+.hostaway-listings {
+    width: 100%;
+    display: block;
+    position: relative;
+
+    .listings-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        
+            img {
+                width: 100%;
+                display: block;
+                max-height: 400px;
+                object-fit: cover;
+            }
+
+            .listing-name {
+                color: #1A6161;
+                font-family: "Lora", Sans-serif;
+                text-decoration: none;
+                font-size: 30px;
+                line-height: 1.3em;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                display: block;
+                font-weight: bold;
+
+                &::after {
+                    padding-top: 10px;
+                    width: 60px;
+                    display: block;
+                    content: '';
+                    height: 2px;
+                    border-bottom: 2px dotted #1a6161ab;
+                }
+            }
+
+            .listing-meta {
+                display: flex;
+
+                span:not(:last-child):after {
+                    content: "";
+                    display: inline-block;
+                    width: 0.25rem;
+                    height: 0.25rem;
+                    margin: 0px 0.5rem;
+                    background: rgb(14, 140, 140);
+                    opacity: 0.4;
+                    border-radius: 33px;
+                    vertical-align: middle;
+                    margin-left: 15px;
+                    margin-right: 15px;
+                }
+
+                .listing-meta span {
+                    color: #1a6161;
+                }
+            }
+
+            .listing-amenities {
+                margin-top: 15px;
+
+                .listing-amenity:not(:last-child) {
+                    margin-right: 5px;
+                }
+                .listing-amenity {
+                    display: inline-flex;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    background: rgba(60, 210, 203, 0.05);
+                    border: 1px solid rgba(60, 210, 203, 0.2);
+                    box-sizing: border-box;
+                    border-radius: 32px;
+                    height: 40px;
+                    padding: 0px 16px 0px;
+                    margin-bottom: 10px;
+                }
+            }
+
+
+    }
+}
+
+
+// /* 2 Columns */
+// .mix,
+// .gap {
+//     width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
+// }
+
+// /* 3 Columns */
+
+// @media screen and (min-width: 541px) {
+//     .mix,
+//     .gap {
+//         width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
+//     }
+// }
+
+// /* 4 Columns */
+
+// @media screen and (min-width: 961px) {
+//     .mix,
+//     .gap {
+//         width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
+//     }
+// }
+
+// /* 5 Columns */
+
+// @media screen and (min-width: 1281px) {
+//     .mix,
+//     .gap {
+//         width: calc(100%/5 - (((5 - 1) * 1rem) / 5));
+//     }
+// }

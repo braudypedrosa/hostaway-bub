@@ -47,7 +47,7 @@ class Hostaway_API_HELPER {
         }
     }
 
-    public function getMediaFromURL($post_id, $url, $image_id, $caption) {
+    public function getMediaFromURL($post_id, $url, $image_id, $caption, $setFeatured = false) {
 
         $imagefile = file_get_contents($url);
         file_put_contents(plugin_dir_path(dirname(__FILE__)) . "temp/image_".$image_id.".jpg", $imagefile);
@@ -61,6 +61,7 @@ class Hostaway_API_HELPER {
 
     public function setFeaturedImageFromURL($image_URL, $post_id, $caption = '') {
         $largeImage = str_replace('x_small', 'x_large', $image_URL);
+
         $image = media_sideload_image( $largeImage, $post_id, $caption ,'id' );
         set_post_thumbnail( $post_id, $image );
     }

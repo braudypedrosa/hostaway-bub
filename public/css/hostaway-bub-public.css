@@ -1,4 +1,96 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap");
+.listings-filter {
+  padding-left: 0;
+  margin-top: 50px;
+}
+.listings-filter li {
+  display: inline-block;
+  caret-color: transparent;
+  height: 32px;
+  font-weight: 700;
+  border-radius: 32px;
+  line-height: 1.3em;
+  box-sizing: border-box;
+  padding: 3px 16px;
+  margin: 0px 8px 8px 0px;
+  cursor: pointer;
+  border: 1px solid rgb(144, 156, 164);
+}
+.listings-filter li.active {
+  border: 1px solid rgb(60, 210, 203);
+  background-color: rgb(60, 210, 203);
+  color: rgb(255, 255, 255);
+}
+
+.hostaway-listings {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+.hostaway-listings .listings-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.hostaway-listings .listings-wrapper img {
+  width: 100%;
+  display: block;
+  max-height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.hostaway-listings .listings-wrapper .listing-name {
+  color: #1A6161;
+  font-family: "Lora", Sans-serif;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 1.3em;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: block;
+  font-weight: bold;
+}
+.hostaway-listings .listings-wrapper .listing-name::after {
+  padding-top: 10px;
+  width: 60px;
+  display: block;
+  content: "";
+  height: 2px;
+  border-bottom: 2px dotted rgba(26, 97, 97, 0.6705882353);
+}
+.hostaway-listings .listings-wrapper .listing-meta {
+  display: flex;
+}
+.hostaway-listings .listings-wrapper .listing-meta span:not(:last-child):after {
+  content: "";
+  display: inline-block;
+  width: 0.25rem;
+  height: 0.25rem;
+  margin: 0px 0.5rem;
+  background: rgb(14, 140, 140);
+  opacity: 0.4;
+  border-radius: 33px;
+  vertical-align: middle;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.hostaway-listings .listings-wrapper .listing-meta .listing-meta span {
+  color: #1a6161;
+}
+.hostaway-listings .listings-wrapper .listing-amenities {
+  margin-top: 15px;
+}
+.hostaway-listings .listings-wrapper .listing-amenities .listing-amenity:not(:last-child) {
+  margin-right: 5px;
+}
+.hostaway-listings .listings-wrapper .listing-amenities .listing-amenity {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(60, 210, 203, 0.05);
+  border: 1px solid rgba(60, 210, 203, 0.2);
+  box-sizing: border-box;
+  border-radius: 32px;
+  height: 40px;
+  padding: 0px 16px 0px;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=hostaway-bub-public.css.map */

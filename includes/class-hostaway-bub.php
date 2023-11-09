@@ -129,7 +129,7 @@ class Hostaway_Bub {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-api.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-hostaway-bub-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-hostaway-bub-public.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/shortcodes.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/shortcodes/shortcodes.php';
 
 		$this->loader = new Hostaway_Bub_Loader();
 
