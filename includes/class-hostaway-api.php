@@ -8,7 +8,7 @@ class Hostaway_API extends Hostaway_API_HELPER {
     const ACCES_TOKEN_ENDPOINT = 'https://api.hostaway.com/v1/accessTokens';
     const LISTINGS_ENDPOINT = 'https://api.hostaway.com/v1/listings';
 
-    public function __construct($client_id, $client_secret) {
+    public function __construct($client_id = '', $client_secret = '') {
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
     }
@@ -92,7 +92,7 @@ class Hostaway_API extends Hostaway_API_HELPER {
                     return (['status' => $result['status'], 'message' => 'Unable to sync properties! Please check API settings.']);
                 } else {
                     
-                    foreach($json_result['results'] as $listing) {
+                    foreach($result['result'] as $listing) {
                         $listing_data = array(
                             "id" => $listing['id'],
                             "name" => $listing['name'],
@@ -112,12 +112,18 @@ class Hostaway_API extends Hostaway_API_HELPER {
                             "minNights" => $listing['minNights'],
                             "maxNights" => $listing['maxNights'],
                             "bookingcomPropertyRoomName" => $listing['bookingcomPropertyRoomName'],
-                            "listingAmenities" => $listing['listingAmenities'],
+                            "thumbnailUrl" => $listing['thumbnailUrl'],
                             "listingImages" => $listing['listingImages'],
+                            "listingTags" => $listing['listingTags'],
+                            "listingAmenities" => $listing['listingAmenities'],
                             "airbnbListingUrl" => $listing['airbnbListingUrl'],
                             "vrboListingUrl" => $listing['vrboListingUrl'],
                             "googleVrListingUrl" => $listing['googleVrListingUrl']
                         );
+
+                        $this->generateLocalProperty($listing_data);
+                        break;
+
                     }
 
                     return (['status' => $result['status'], 'message' => 'Products successfully synced!']);
@@ -127,27 +133,6 @@ class Hostaway_API extends Hostaway_API_HELPER {
 
         } catch(Exception $e) {
             echo 'Error: ' .$e->getMessage();
-        }
-    }
-
-    private function generateLocalProperty($listing_data) {
-        global $wpdb;
-
-        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'listing_id' AND meta_value='".$listing_data['listing_id']."'";
-
-        $result = $wpdb->get_results($sql,ARRAY_A);
-        $post_id = $result[0]['post_id'];
-
-        // add listing if search returns null
-        if($post_id == null) {
-            $post_id = wp_insert_post(array(
-                'post_title'=> $listing_data['shortname'],
-                'post_content' => $listing_data['description'],
-                'post_type'=> 'guesty_listings',
-                'post_status'=> 'publish'
-            ));
-        } else { // update logic heregi
-
         }
     }
 }

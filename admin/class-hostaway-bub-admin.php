@@ -69,6 +69,7 @@ class Hostaway_Bub_Admin {
 			'hostaway_settings',
 			function(){
 				include_once(plugin_dir_path(dirname(__FILE__)) . 'admin/partials/hostaway-bub-admin-display.php');
+
 			},
 		); 
 	 }
@@ -86,11 +87,28 @@ class Hostaway_Bub_Admin {
 			$response = $api->generateToken();
 		}
 		
-		$response = $api->syncProperties();
-		
 
 		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=".$response['status']."&msg=".$response['message']);
 		exit;
+	 }
+
+	 public function sync_properties() {
+		
+		$token = get_option('hostaway_token');
+
+		if(isset($token)) {
+
+			$api = new Hostaway_API();
+			$response = $api->syncProperties();
+
+			header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=".$response['status']."&msg=".$response['message']);
+			exit;
+			
+		} else {
+			$errorMsg = "Invalid token! Please try saving the settings and try syncing again.";
+			header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=fail&msg=".$errorMsg);
+			exit;
+		}
 	 }
 
 
@@ -126,12 +144,64 @@ class Hostaway_Bub_Admin {
 				'hierarchical' => false,
 				/* the next one is important, it tells what's enabled in the post editor */
 				'supports' => array( 'title', 'editor', 'thumbnail', 'custom-fields'),
-				'taxonomies' => array('post_tag')	
+				'taxonomies' => array('post-tags')	
 
 			) /* end of options */
 
 		); /* end of register post type */
 	 }
+
+	public function taxonomy_init() {
+
+		$amenityLabels = array(
+			'name' => _x( 'Amenities', 'taxonomy general name' ),
+			'singular_name' => _x( 'Amenity', 'taxonomy singular name' ),
+			'search_items' =>  __( 'Search Amenities' ),
+			'all_items' => __( 'All Amenities' ),
+			'parent_item' => __( 'Parent Amenity' ),
+			'parent_item_colon' => __( 'Parent Amenity:' ),
+			'edit_item' => __( 'Edit Amenity' ), 
+			'update_item' => __( 'Update Amenity' ),
+			'add_new_item' => __( 'Add New Amenity' ),
+			'new_item_name' => __( 'New Amenity Name' ),
+			'menu_name' => __( '	Amenities' ),
+		);  
+		
+		register_taxonomy('amenities', array('hostaway_bub'), array(
+			'hierarchical' => true,
+			'labels' => $amenityLabels,
+			'show_ui' => true,
+			'show_in_rest' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'amenities' ),
+		));
+
+		$groupLabels = array(
+			'name' => _x( 'Groups', 'taxonomy general name' ),
+			'singular_name' => _x( 'Group', 'taxonomy singular name' ),
+			'search_items' =>  __( 'Search Groups' ),
+			'all_items' => __( 'All Groups' ),
+			'parent_item' => __( 'Parent Group' ),
+			'parent_item_colon' => __( 'Parent Group:' ),
+			'edit_item' => __( 'Edit Group' ), 
+			'update_item' => __( 'Update Group' ),
+			'add_new_item' => __( 'Add New Group' ),
+			'new_item_name' => __( 'New Group Name' ),
+			'menu_name' => __( '	Groups' ),
+		);  
+		
+		register_taxonomy('groups', array('hostaway_bub'), array(
+			'hierarchical' => true,
+			'labels' => $groupLabels,
+			'show_ui' => true,
+			'show_in_rest' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'groups' ),
+		));
+
+	}
 
 	/**
 	 * Register the stylesheets for the admin area.

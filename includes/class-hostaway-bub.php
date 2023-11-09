@@ -103,6 +103,7 @@ class Hostaway_Bub {
 		define( 'HOSTAWAY_ACF_URL', plugin_dir_url( dirname( __FILE__ ) ) . 'admin/library/advanced-custom-fields/' );
 
 		include_once( HOSTAWAY_ACF_PATH . 'acf.php' );
+		include_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/acf-photo-gallery-field/navz-photo-gallery.php');
 
 		add_filter('acf/settings/url', 'plugin_name_settings_url');
 		function plugin_name_settings_url( $url ) {
@@ -162,10 +163,12 @@ class Hostaway_Bub {
 		$plugin_admin = new Hostaway_Bub_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'post_type_init' );
+		$this->loader->add_action( 'init', $plugin_admin, 'taxonomy_init' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'admin_menu', $plugin_admin, 'menu_init' );
 		$this->loader->add_action( 'admin_post_save_hostaway_settings', $plugin_admin, 'save_menu' );
+		$this->loader->add_action( 'admin_post_sync_properties', $plugin_admin, 'sync_properties' );
 		$this->loader->add_filter( 'plugin_action_links_hostaway-bub/hostaway-bub.php', $plugin_admin, 'add_plugin_links' );
 		
 	}

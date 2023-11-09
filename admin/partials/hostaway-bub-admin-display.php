@@ -42,6 +42,12 @@ $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_cli
         </div>
 
         <div class="bub-settings">
+            <div class="preloader-container">
+                <div class="preloader">
+                    <img width="48" src="<?php echo plugin_dir_url(dirname(__FILE__)).'images/loading.gif'; ?>" alt="preloader"/>
+                    <span>Please wait while we are fetching your properties ...</span>
+                </div>
+            </div>
             <h1>Hostaway Settings</h1>
     
             <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
@@ -59,6 +65,13 @@ $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_cli
 
                 <div class="submit">
                 <button class="button button-primary" type="submit">Save Settings</button>
+                </div>
+            </form>
+
+            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
+                <input type="hidden" name="action" value="sync_properties" />
+                <div class="submit">
+                <button class="button button-primary" id="sync_properties" onclick="jQuery('.preloader-container').show()" type="submit">Sync Properties</button>
                 </div>
             </form>
         </div>

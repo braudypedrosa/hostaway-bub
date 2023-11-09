@@ -27,3 +27,38 @@
     margin-left: 0;
     position: relative;
 }
+
+.submit {
+    padding-bottom: 0!important;
+    padding-top: 10px;
+}
+
+
+.preloader-container {
+    display: none;
+}
+.preloader {
+    position: fixed;
+    z-index: 9999999;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #0000006b;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.preloader img {
+    filter: brightness(0) invert(1);
+}
+
+.preloader span {
+    color: white;
+    font-size: 30px;
+    line-height: 2em;
+    font-weight: bold;
+}
