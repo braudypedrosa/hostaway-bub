@@ -31,15 +31,42 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  position: relative;
 }
-.hostaway-listings .listings-wrapper img {
+.hostaway-listings .listings-wrapper .hostaway-listing {
+  position: relative;
+}
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-groups {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-groups .listing-group {
+  border: 1px solid rgb(60, 210, 203);
+  background-color: rgb(60, 210, 203);
+  color: rgb(255, 255, 255);
+  display: block;
+  caret-color: transparent;
+  height: 32px;
+  font-weight: 700;
+  border-radius: 32px;
+  line-height: 1.3em;
+  box-sizing: border-box;
+  padding: 3px 16px;
+  margin: 0px 8px 8px 0px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+}
+.hostaway-listings .listings-wrapper .hostaway-listing img {
   width: 100%;
   display: block;
   max-height: 400px;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 40px;
 }
-.hostaway-listings .listings-wrapper .listing-name {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-name {
   color: #1A6161;
   font-family: "Lora", Sans-serif;
   text-decoration: none;
@@ -50,7 +77,7 @@
   display: block;
   font-weight: bold;
 }
-.hostaway-listings .listings-wrapper .listing-name::after {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-name::after {
   padding-top: 10px;
   width: 60px;
   display: block;
@@ -58,10 +85,10 @@
   height: 2px;
   border-bottom: 2px dotted rgba(26, 97, 97, 0.6705882353);
 }
-.hostaway-listings .listings-wrapper .listing-meta {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-meta {
   display: flex;
 }
-.hostaway-listings .listings-wrapper .listing-meta span:not(:last-child):after {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-meta span:not(:last-child):after {
   content: "";
   display: inline-block;
   width: 0.25rem;
@@ -74,16 +101,16 @@
   margin-left: 15px;
   margin-right: 15px;
 }
-.hostaway-listings .listings-wrapper .listing-meta .listing-meta span {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-meta .listing-meta span {
   color: #1a6161;
 }
-.hostaway-listings .listings-wrapper .listing-amenities {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-amenities {
   margin-top: 15px;
 }
-.hostaway-listings .listings-wrapper .listing-amenities .listing-amenity:not(:last-child) {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-amenities .listing-amenity:not(:last-child) {
   margin-right: 5px;
 }
-.hostaway-listings .listings-wrapper .listing-amenities .listing-amenity {
+.hostaway-listings .listings-wrapper .hostaway-listing .listing-amenities .listing-amenity {
   display: inline-flex;
   align-items: center;
   background: rgba(60, 210, 203, 0.05);

@@ -43,9 +43,9 @@ function display_properties_func( $atts ) {
         if(!empty($groupTerms)) {
  
             echo '<ul class="listings-filter">';
-            echo '<li class="active" value="all">All('.$query->found_posts.')</li>';
+            echo '<li class="filter_all" value="all">All('.$query->found_posts.')</li>';
             foreach($groupTerms as $term) {
-                echo '<li value="'.$term->slug.'">'.$term->name.'('.$term->count.')</li>';
+                echo '<li class="filter_'.$term->slug.'" id="'.$term->term_id.'" value="'.$term->slug.'">'.$term->name.'('.$term->count.')</li>';
             }
             echo '</ul>';
 
@@ -96,6 +96,12 @@ function display_properties_func( $atts ) {
                     }
                 echo '</div>';
 
+            echo '</div>';
+
+            echo '<div class="listing-groups">';
+                foreach($groupFilter as $group) {
+                    echo '<div class="listing-group">'.$group->name.'</div>';
+                }
             echo '</div>';
 
         echo '</div>';
