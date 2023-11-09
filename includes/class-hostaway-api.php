@@ -122,7 +122,6 @@ class Hostaway_API extends Hostaway_API_HELPER {
                         );
 
                         $this->generateLocalProperty($listing_data);
-                        break;
 
                     }
 

@@ -14,24 +14,37 @@ class Hostaway_API_HELPER {
         
         $imageIDArray = array();
         
-
         if(isset($post_id)) {
             // loop through the array of images from API
             foreach($images as $image) {
 
                 $caption = $image['caption'];
                 $url = $image['url'];
-                $image_id = $image['id'];
 
 
-                $imageID = $this->getMediaFromURL($post_id, $url, $image_id, $caption);
-                array_push($imageIDArray, $imageID);
-
-                update_post_meta($post_id, $selector, implode(',', $imageIDArray));
+                // $imageID = $this->getMediaFromURL($post_id, $url, $image_id, $caption);
+                // array_push($imageIDArray, $imageID);
                 
             }
+            // update_post_meta($post_id, $selector, );
         }
+    }
 
+    public function storeImages($images, $post_id, $selector) {
+        $imagesArray = array();
+
+        if(isset($post_id)) {
+            foreach($images as $image) {
+                $imageData = array(
+                    'url' => $image['url'],
+                    'caption' => $image['caption']
+                );
+
+                array_push($imagesArray, $imageData);
+            }
+
+            update_post_meta($post_id, $selector, $imageIDArray);
+        }
     }
 
     public function getMediaFromURL($post_id, $url, $image_id, $caption) {
@@ -65,6 +78,9 @@ class Hostaway_API_HELPER {
                     // add term
                     $term = wp_insert_term($dataItem[$field_selector], $taxonomy);
                     array_push($dataIDs, $term['term_id']);
+                } else {
+                    $term = get_term_by('name', $dataItem[$field_selector], $taxonomy);
+                    array_push($dataIDs, $term->term_id);
                 }
     
             }
@@ -119,7 +135,7 @@ class Hostaway_API_HELPER {
         update_field('google_vr_link', $listing_data['googleVrListingUrl'], $post_id);
 
         $this->setFeaturedImageFromURL($listing_data['thumbnailUrl'], $post_id);
-        $this->imageArrayToMedia($listing_data['listingImages'], $post_id, 'photo_gallery');
+        $this->storeImages($listing_data['listingImages'], $post_id, 'stored_images');
 
         // insert amenities
         $this->insertDataArrayAsTerms($listing_data['listingAmenities'], $post_id, 'amenities', 'amenityName');
