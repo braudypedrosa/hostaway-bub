@@ -98,11 +98,13 @@ function display_properties_func( $atts ) {
 
             echo '</div>';
 
-            echo '<div class="listing-groups">';
-                foreach($groupFilter as $group) {
-                    echo '<div class="listing-group">'.$group->name.'</div>';
-                }
-            echo '</div>';
+            if(!empty($groupFilter)) {
+                echo '<div class="listing-groups">';
+                    foreach($groupFilter as $group) {
+                        echo '<div class="listing-group">'.$group->name.'</div>';
+                    }
+                echo '</div>';
+            }
 
         echo '</div>';
 

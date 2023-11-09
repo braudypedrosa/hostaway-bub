@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://www.buildupbookings.com/
- * @since             1.0.0
+ * @since             1.1.0
  * @package           Hostaway_Bub
  *
  * @wordpress-plugin
  * Plugin Name:       Hostaway by BuildUp Bookings
  * Plugin URI:        https://www.buildupbookings.com/
  * Description:       A lightweight plugin that integrates with the Hostaway booking engine.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            BuildUp Bookings
  * Author URI:        https://www.buildupbookings.com//
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'HOSTAWAY_BUB_VERSION', '1.0.0' );
+define( 'HOSTAWAY_BUB_VERSION', '1.1.0' );
 
 /**
  * The code that runs during plugin activation.
