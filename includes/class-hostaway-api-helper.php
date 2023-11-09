@@ -13,7 +13,7 @@ class Hostaway_API_HELPER {
     public function imageArrayToMedia($images, $post_id, $selector) {
         
         $imageIDArray = array();
-        add_post_meta($post_id, $selector, '');
+        
 
         if(isset($post_id)) {
             // loop through the array of images from API
@@ -21,16 +21,29 @@ class Hostaway_API_HELPER {
 
                 $caption = $image['caption'];
                 $url = $image['url'];
+                $image_id = $image['id'];
 
-                $image = media_sideload_image($url, $post_id, $caption, 'id');
-                array_push($imageIDArray, $image);
+
+                $imageID = $this->getMediaFromURL($post_id, $url, $image_id, $caption);
+                array_push($imageIDArray, $imageID);
+
+                update_post_meta($post_id, $selector, implode(',', $imageIDArray));
+                
             }
         }
 
-        if(isset($selector)) {
-            update_post_meta($post_id, $selector, $imageIDArray);
-        }
+    }
 
+    public function getMediaFromURL($post_id, $url, $image_id, $caption) {
+
+        $imagefile = file_get_contents($url);
+        file_put_contents(plugin_dir_path(dirname(__FILE__)) . "temp/image_".$image_id.".jpg", $imagefile);
+        $imageURL = plugin_dir_url(dirname(__FILE__)) . "temp/image_".$image_id.".jpg";
+
+        $imageID = media_sideload_image($imageURL, $post_id, $caption, 'id');
+        unlink(plugin_dir_path(dirname(__FILE__)) . "temp/image_".$image_id.".jpg");
+
+        return $imageID;
     }
 
     public function setFeaturedImageFromURL($image_URL, $post_id, $caption = '') {

@@ -13,6 +13,8 @@
  */
 
 
+// unlink(plugin_dir_path(dirname(dirname(__FILE__))) . "temp/image_284387068.jpg");
+
 $client_id = get_option('hostaway_client_id') ? get_option('hostaway_client_id') : '';
 $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_client_secret') : '';
 ?>
