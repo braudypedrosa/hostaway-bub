@@ -3,10 +3,6 @@
 class Hostaway_API_HELPER {
 
     public function getToken() {
-        if(empty(get_option('hostaway_token'))) {
-            generateToken();
-        } 
-
         return get_option('hostaway_token');
     }
 
@@ -43,7 +39,7 @@ class Hostaway_API_HELPER {
                 array_push($imagesArray, $imageData);
             }
 
-            update_post_meta($post_id, $selector, $imageIDArray);
+            update_post_meta($post_id, $selector, $imagesArray);
         }
     }
 

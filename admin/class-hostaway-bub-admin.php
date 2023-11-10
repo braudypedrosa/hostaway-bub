@@ -85,7 +85,13 @@ class Hostaway_Bub_Admin {
 
 			$api = new Hostaway_API($client_id, $client_secret);
 			$response = $api->generateToken();
+		} else {
+			$response = array(
+				'status' => 'fail',
+				'message' => 'Please fill in client ID and client secret to generate token!'
+			);
 		}
+
 		
 
 		header("Location: " . get_bloginfo("url") . "/wp-admin/admin.php?page=hostaway_settings&status=".$response['status']."&msg=".$response['message']);
@@ -96,8 +102,7 @@ class Hostaway_Bub_Admin {
 		
 		$token = get_option('hostaway_token');
 
-		if(isset($token)) {
-
+		if(!empty($token)) {
 			$api = new Hostaway_API();
 			$response = $api->syncProperties();
 
