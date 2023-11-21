@@ -46,6 +46,7 @@ Answer to foo bar dilemma.
 = 1.1 =
 - Added fixes to filtering
 - Added fixes to listing images
+- Added ACF save/load integration
 
 = 1.0 =
 - initial plugin
