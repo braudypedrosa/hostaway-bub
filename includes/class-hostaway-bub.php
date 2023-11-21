@@ -165,6 +165,7 @@ class Hostaway_Bub {
 
 		$this->loader->add_action( 'init', $plugin_admin, 'post_type_init' );
 		$this->loader->add_action( 'init', $plugin_admin, 'taxonomy_init' );
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'meta_boxes_init' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'admin_menu', $plugin_admin, 'menu_init' );

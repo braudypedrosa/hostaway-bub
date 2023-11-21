@@ -208,6 +208,30 @@ class Hostaway_Bub_Admin {
 
 	}
 
+	public function meta_boxes_init() {
+        add_meta_box(
+            'hostaway_bub_metabox',          
+            'Listing Images',              
+            function() {
+				global $post;
+
+				$images = get_post_meta($post->ID, 'stored_images');
+
+				if(!empty($images)) {
+					echo '<div class="admin-property-images">';
+					foreach($images[0] as $image) {
+						echo '<img width="150" style="margin-right: 10px;" src="'.$image['url'].'" />';
+					}
+					echo '</div>';
+				}
+				
+
+				
+			},
+            'hostaway_bub'         
+        );
+    }
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 */
