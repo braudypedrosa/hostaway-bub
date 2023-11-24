@@ -54,6 +54,23 @@ class Hostaway_Bub_Public {
 
 	}
 
+	public function property_single_page_template_init($single) {
+
+		global $post;
+
+		/* Checks for single template by post type */
+		if ( $post->post_type == 'hostaway_bub' ) {
+
+			
+			if ( file_exists( plugin_dir_path( __DIR__ ) . 'public/partials/views/single-property.php' ) ) {
+				return plugin_dir_path( __DIR__ ) . 'public/partials/views/single-property.php';
+			}
+		}
+
+		return $single;
+		
+	}
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *

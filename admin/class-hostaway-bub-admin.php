@@ -232,6 +232,8 @@ class Hostaway_Bub_Admin {
         );
     }
 
+	
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 */

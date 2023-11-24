@@ -411,28 +411,6 @@
             },
             "default_value": "",
             "placeholder": ""
-        },
-        {
-            "key": "field_654c098b3fbf8",
-            "label": "Gallery",
-            "name": "photo_gallery",
-            "aria-label": "",
-            "type": "photo_gallery",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "fields[gallery": {
-                "edit_modal": "Default",
-                "images_limit": "",
-                "remove_edit_button": "No",
-                "remove_delete_button": "No"
-            },
-            "edit_modal": "Default"
         }
     ],
     "location": [
@@ -453,5 +431,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1700580997
+    "modified": 1700820543
 }

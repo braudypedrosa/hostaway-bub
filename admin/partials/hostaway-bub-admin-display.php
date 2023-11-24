@@ -77,5 +77,14 @@ $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_cli
                 </div>
             </form>
         </div>
+
+        <div class="usage-settings">
+            <h3>List of available shortcodes:</h3>
+            <pre>[display_properties]</pre>
+            Available attributes:
+            <br><strong>filter (Default: true):</strong> Toggle filtering of properties. Accepts a boolean value (True/False)
+            <br><strong>group (Default: all properties):</strong> Provide the ID of the category to display. Although, specifying a group will disable the filter.
+            <pre>[display_properties filter="true" group="#category_id#"]</pre>
+        </div>
     </div>
 </div>
