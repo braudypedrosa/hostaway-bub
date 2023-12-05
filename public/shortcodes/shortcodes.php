@@ -1,5 +1,6 @@
 <?php 
 
+// Display Properties Shortcode
 function display_properties_func( $atts ) {  
     // Shortcode attributes
 	$data = shortcode_atts(
@@ -76,6 +77,10 @@ function display_properties_func( $atts ) {
             }
         }
 
+        if($featured_image == '') {
+            $featured_image = plugin_dir_url( __DIR__ ) . 'images/property-dummy-image.png';
+        }
+
 
         echo '<div class="mix hostaway-listing'.$filter_classes.'" id="hlisting-'.$id.'">';
 
@@ -123,3 +128,67 @@ function display_properties_func( $atts ) {
 }
 
 add_shortcode( 'display_properties', 'display_properties_func' );
+
+
+// Display Image Gallery by ID
+function display_gallery_func( $atts ) {
+     // Shortcode attributes
+	$data = shortcode_atts(
+		array(
+			'largefirst' => true,
+            'grid' => false,
+            'columns' => 3,
+            'imagestoshow' => 9, 
+            'propertyid' => '',
+		),
+        $atts, 
+        'display_gallery'
+	);
+
+    $additional_class = '';
+    $data_attributes = '';
+
+    
+    
+    if($data['grid']) {
+
+        $additional_class = ' grid-style';
+
+        $data['largefirst'] = false;
+        
+        $data_attributes = 'data-gallery-columns="'.$data['columns'].'" data-gallery-imagestoshow="'.$data['imagestoshow'].'"';
+    }
+
+    if($data['largefirst']) {
+        $additional_class .= ' large-first';
+
+        $data_attributes = 'data-gallery-imagestoshow="5"';
+    }
+
+    if($data['propertyid'] == '') {
+        echo 'Property ID is required!';
+    } else {
+
+        global $wpdb;
+
+        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'hostaway_listing_id' AND meta_value='".$data['propertyid']."'";
+
+        $result = $wpdb->get_results($sql,ARRAY_A);
+        $post_id = isset($result[0]['post_id']) ? $result[0]['post_id'] : '';
+
+        if($post_id == null) {
+            echo 'Property not found!';
+        } else {
+            $images = get_post_meta($post_id, 'stored_images');
+
+            echo '<div class="hostaway-property-gallery'.$additional_class.'" '.$data_attributes.'>';
+            foreach($images[0] as $image) {
+                echo '<img class="property-image" src="'.$image['url'].'" alt="'.$image['caption'].'" />';
+            }
+            echo '</div>';
+        }
+    }
+
+}
+
+add_shortcode('display_gallery', 'display_gallery_func'); 
