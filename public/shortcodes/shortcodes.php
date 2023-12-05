@@ -161,8 +161,6 @@ function display_gallery_func( $atts ) {
 
     if($data['largefirst']) {
         $additional_class .= ' large-first';
-
-        $data_attributes = 'data-gallery-imagestoshow="5"';
     }
 
     if($data['propertyid'] == '') {
@@ -183,8 +181,14 @@ function display_gallery_func( $atts ) {
 
             echo '<div class="hostaway-property-gallery'.$additional_class.'" '.$data_attributes.'>';
             foreach($images[0] as $image) {
-                echo '<img class="property-image" src="'.$image['url'].'" alt="'.$image['caption'].'" />';
+                echo '<a data-fslightbox="property-gallery-image" href="'.$image['url'].'">';
+                    echo '<img class="property-image" src="'.$image['url'].'" alt="'.$image['caption'].'" />';
+                echo '</a>';
             }
+
+            $image_count = count($images[0]);
+
+            echo '<span class="gallery-count">'.(($image_count != 5) ? '+'.($image_count - 5).' photos' : '').'</span>';
             echo '</div>';
         }
     }

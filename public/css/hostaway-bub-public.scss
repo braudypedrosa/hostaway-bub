@@ -140,35 +140,47 @@
 }
 
 
-// /* 2 Columns */
-// .mix,
-// .gap {
-//     width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
-// }
+// Lightbox CSS
 
-// /* 3 Columns */
+.hostaway-property-gallery {
+    position: relative;
+    display: grid;
 
-// @media screen and (min-width: 541px) {
-//     .mix,
-//     .gap {
-//         width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
-//     }
-// }
+    a { 
+        display: none;
+    }
 
-// /* 4 Columns */
+    &.large-first {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
 
-// @media screen and (min-width: 961px) {
-//     .mix,
-//     .gap {
-//         width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
-//     }
-// }
+        a:nth-child(-n+5) {
+            display: block;
+        }
 
-// /* 5 Columns */
+        a:first-child {
+            grid-row: 1 / span 2;
 
-// @media screen and (min-width: 1281px) {
-//     .mix,
-//     .gap {
-//         width: calc(100%/5 - (((5 - 1) * 1rem) / 5));
-//     }
-// }
+            img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    img {
+        width: 100%;
+        display: block;
+        border-radius: 30px;
+    }
+
+    span.gallery-count {
+        position: absolute;
+        bottom: 5%;
+        right: 2%;
+        background: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: bold;
+    }
+}
