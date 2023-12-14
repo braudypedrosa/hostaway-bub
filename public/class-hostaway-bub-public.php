@@ -113,7 +113,8 @@ class Hostaway_Bub_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name . '_mixitup', plugin_dir_url( __FILE__ ) . 'js/vendor/mixitup.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '_mixitup', plugin_dir_url( __FILE__ ) . 'library/mixitup.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '_fslightbox', plugin_dir_url( __FILE__ ) . 'library/fslightbox.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/hostaway-bub-public.js', array( 'jquery' ), $this->version, false );
 
 	}

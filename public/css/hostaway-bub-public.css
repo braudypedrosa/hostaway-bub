@@ -120,4 +120,41 @@
   height: 40px;
   padding: 0px 16px 0px;
   margin-bottom: 10px;
+}
+
+.hostaway-property-gallery {
+  position: relative;
+  display: grid;
+}
+.hostaway-property-gallery a {
+  display: none;
+}
+.hostaway-property-gallery.large-first {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+.hostaway-property-gallery.large-first a:nth-child(-n+5) {
+  display: block;
+}
+.hostaway-property-gallery.large-first a:first-child {
+  grid-row: 1/span 2;
+}
+.hostaway-property-gallery.large-first a:first-child img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.hostaway-property-gallery img {
+  width: 100%;
+  display: block;
+  border-radius: 30px;
+}
+.hostaway-property-gallery span.gallery-count {
+  position: absolute;
+  bottom: 5%;
+  right: 2%;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
 }/*# sourceMappingURL=hostaway-bub-public.css.map */

@@ -1,6 +1,7 @@
 <?php 
 
-function display_properties_func( $atts ) {  
+// Display Properties Shortcode
+function hostaway_bub_display_properties_func( $atts ) {  
     // Shortcode attributes
 	$data = shortcode_atts(
 		array(
@@ -76,6 +77,10 @@ function display_properties_func( $atts ) {
             }
         }
 
+        if($featured_image == '') {
+            $featured_image = plugin_dir_url( __DIR__ ) . 'images/property-dummy-image.png';
+        }
+
 
         echo '<div class="mix hostaway-listing'.$filter_classes.'" id="hlisting-'.$id.'">';
 
@@ -122,4 +127,152 @@ function display_properties_func( $atts ) {
 
 }
 
-add_shortcode( 'display_properties', 'display_properties_func' );
+add_shortcode( 'display_properties', 'hostaway_bub_display_properties_func' );
+
+
+// Display Image Gallery by ID
+function hostaway_bub_display_gallery_func( $atts ) {
+     // Shortcode attributes
+	$data = shortcode_atts(
+		array(
+			'largefirst' => true,
+            'grid' => false,
+            'columns' => 3,
+            'imagestoshow' => 9, 
+            'propertyid' => '',
+		),
+        $atts, 
+        'display_gallery'
+	);
+
+    $additional_class = '';
+    $data_attributes = '';
+
+    
+    
+    if($data['grid']) {
+
+        $additional_class = ' grid-style';
+
+        $data['largefirst'] = false;
+        
+        $data_attributes = 'data-gallery-columns="'.$data['columns'].'" data-gallery-imagestoshow="'.$data['imagestoshow'].'"';
+    }
+
+    if($data['largefirst']) {
+        $additional_class .= ' large-first';
+    }
+
+    if($data['propertyid'] == '') {
+        echo 'Property ID is required!';
+    } else {
+
+        global $wpdb;
+
+        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'hostaway_listing_id' AND meta_value='".$data['propertyid']."'";
+
+        $result = $wpdb->get_results($sql,ARRAY_A);
+        $post_id = isset($result[0]['post_id']) ? $result[0]['post_id'] : '';
+
+        if($post_id == null) {
+            echo 'Property not found!';
+        } else {
+            $images = get_post_meta($post_id, 'stored_images');
+
+            echo '<div class="hostaway-property-gallery'.$additional_class.'" '.$data_attributes.'>';
+            foreach($images[0] as $image) {
+                echo '<a data-fslightbox="property-gallery-image" href="'.$image['url'].'">';
+                    echo '<img class="property-image" src="'.$image['url'].'" alt="'.$image['caption'].'" />';
+                echo '</a>';
+            }
+
+            $image_count = count($images[0]);
+
+            echo '<span class="gallery-count">'.(($image_count != 5) ? '+'.($image_count - 5).' photos' : '').'</span>';
+            echo '</div>';
+        }
+    }
+
+}
+
+add_shortcode('display_gallery', 'hostaway_bub_display_gallery_func'); 
+
+function hostaway_bub_property_data( $atts ){
+
+    $data = shortcode_atts(
+		array(
+			'wrapper' => '',
+            'data' => '',
+            'propertyid' => '',
+            'additionalclass' => '',
+		),
+        $atts, 
+        'display_property_title'
+	);
+
+    if($data['propertyid'] == '') {
+        echo 'Property ID is required!';
+    } else if($data['data'] == '') {    
+        echo 'Please add data attribute to display. (Available attribute values are: title, content, rules, amenities, room-info)';
+    } else {
+
+        global $wpdb;
+
+        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'hostaway_listing_id' AND meta_value='".$data['propertyid']."'";
+
+        $result = $wpdb->get_results($sql,ARRAY_A);
+        $post_id = isset($result[0]['post_id']) ? $result[0]['post_id'] : '';
+
+        if($post_id == null) {
+            echo 'Property not found!';
+        } else {
+            
+            
+            if($data['data'] == 'title') {
+                echo '<'.(($data['wrapper']) ? $data['wrapper'] : 'h1').' class="hostaway-property-title '.$data['additionalclass'].'">'.get_the_title($post_id).'<'.(($data['wrapper']) ? $data['wrapper'] : 'h1').'>';
+            } else if($data['data'] == 'content') {
+                echo '<'.(($data['wrapper']) ? $data['wrapper'] : 'div').' class="hostaway-property-content '.$data['additionalclass'].'">'.wpautop(get_post_field('post_content', $post_id)).'<'.(($data['wrapper']) ? $data['wrapper'] : 'div').'>';
+            } else if($data['data'] == 'rules') {
+                echo '<'.(($data['wrapper']) ? $data['wrapper'] : 'div').' class="hostaway-property-house-rules '.$data['additionalclass'].'">'.get_field('house_rules', $post_id).'<'.(($data['wrapper']) ? $data['wrapper'] : 'div').'>';
+            }
+
+        }
+    }
+
+}
+
+add_shortcode('display_property_data', 'hostaway_bub_property_data'); 
+
+
+function temp_hostaway_bub_property_title_func( $atts ){
+
+    $data = shortcode_atts(
+		array(
+			'wrapper' => 'h1',
+            'propertyid' => '',
+		),
+        $atts, 
+        'display_property_title'
+	);
+
+    if($data['propertyid'] == '') {
+        echo 'Property ID is required!';
+    } else {
+
+        global $wpdb;
+
+        $sql = "SELECT post_id FROM ".$wpdb->prefix."postmeta WHERE meta_key = 'hostaway_listing_id' AND meta_value='".$data['propertyid']."'";
+
+        $result = $wpdb->get_results($sql,ARRAY_A);
+        $post_id = isset($result[0]['post_id']) ? $result[0]['post_id'] : '';
+
+        if($post_id == null) {
+            echo 'Property not found!';
+        } else {
+            
+        }
+    }
+
+}
+
+add_shortcode('temp_display_property_title', 'temp_hostaway_bub_property_title_func'); 
