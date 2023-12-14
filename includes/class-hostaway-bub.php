@@ -122,6 +122,7 @@ class Hostaway_Bub {
 			$paths[] = plugin_dir_path( dirname( __FILE__ ) ) . '/acf-json';
 			return $paths;
 		}
+		
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-i18n.php';
@@ -170,6 +171,7 @@ class Hostaway_Bub {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_filter( 'admin_menu', $plugin_admin, 'menu_init' );
 		$this->loader->add_action( 'admin_post_save_hostaway_settings', $plugin_admin, 'save_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'elementor_support' );
 		$this->loader->add_action( 'admin_post_sync_properties', $plugin_admin, 'sync_properties' );
 		$this->loader->add_filter( 'plugin_action_links_hostaway-bub/hostaway-bub.php', $plugin_admin, 'add_plugin_links' );
 		
