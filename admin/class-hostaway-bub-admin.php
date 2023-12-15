@@ -232,17 +232,6 @@ class Hostaway_Bub_Admin {
         );
     }
 
-	// add elementor widgets support if elementor is active
-	public function elementor_support() {
-		
-		if(( !is_plugin_active( 'elementor/loaded' ) )) {
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'elementor/class-widgets.php';
-		}
-	}
-
-
-	
-
 	/**
 	 * Register the stylesheets for the admin area.
 	 */
