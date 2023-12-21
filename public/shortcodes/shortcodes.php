@@ -198,7 +198,7 @@ function hostaway_bub_display_gallery_func( $atts ) {
 add_shortcode('display_gallery', 'hostaway_bub_display_gallery_func'); 
 
 function hostaway_bub_property_data( $atts ){
-
+    
     $data = shortcode_atts(
 		array(
 			'wrapper' => '',
@@ -244,7 +244,7 @@ function hostaway_bub_property_data( $atts ){
 add_shortcode('display_property_data', 'hostaway_bub_property_data'); 
 
 
-function temp_hostaway_bub_property_title_func( $atts ){
+function hostaway_bub_property_title_func( $atts ){
 
     $data = shortcode_atts(
 		array(
@@ -275,4 +275,4 @@ function temp_hostaway_bub_property_title_func( $atts ){
 
 }
 
-add_shortcode('temp_display_property_title', 'temp_hostaway_bub_property_title_func'); 
+add_shortcode('display_property_title', 'hostaway_bub_property_title_func'); 

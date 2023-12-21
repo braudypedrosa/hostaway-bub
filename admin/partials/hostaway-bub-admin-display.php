@@ -17,6 +17,7 @@
 
 $client_id = get_option('hostaway_client_id') ? get_option('hostaway_client_id') : '';
 $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_client_secret') : '';
+$booking_engine_url = get_option('hostaway_booking_engine_url') ? get_option('hostaway_booking_engine_url') : '';
 ?>
 
 <div class="bub-container">
@@ -63,6 +64,12 @@ $client_secret = get_option('hostaway_client_secret') ? get_option('hostaway_cli
                     <label for="client_secret">Client Secret</label>
                     <input type="password" id="client_secret" name="client_secret" value="<?php echo $client_secret; ?>">
                     <span class="info">You can generate the secret key <a href="https://dashboard.hostaway.com/settings/hostaway-api" target="blank">here</a>.</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="booking_engine_url">Booking Engine URL:</label>
+                    <input type="text" id="booking_engine_url" name="booking_engine_url" value="<?php echo $booking_engine_url; ?>">
+                    <span class="info">You can find your booking engine URL in the <a href="https://dashboard.hostaway.com/v3/booking-engine/settings/advanced/" target="blank">booking engine settings</a>.</span>
                 </div>
 
                 <div class="submit">

@@ -78,10 +78,12 @@ class Hostaway_Bub_Admin {
 
 		$client_id = isset($_POST['client_id']) ? $_POST['client_id'] : get_option('client_id');
 		$client_secret = isset($_POST['client_secret']) ? $_POST['client_secret'] : get_option('client_secret');
+		$booking_engine_url = isset($_POST['booking_engine_url']) ? $_POST['booking_engine_url'] : get_option('booking_engine_url');
 
 		if($client_id != '' || $client_secret != '') {
 			update_option('hostaway_client_id', $client_id);
 			update_option('hostaway_client_secret', $client_secret);
+			update_option('hostaway_booking_engine_url', $booking_engine_url);
 
 			$api = new Hostaway_API($client_id, $client_secret);
 			$response = $api->generateToken();
