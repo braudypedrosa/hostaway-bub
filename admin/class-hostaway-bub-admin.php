@@ -222,7 +222,7 @@ class Hostaway_Bub_Admin {
 				if(!empty($images)) {
 					echo '<div class="admin-property-images">';
 					foreach($images[0] as $image) {
-						echo '<img width="150" style="margin-right: 10px;" src="'.$image['url'].'" />';
+						echo '<img width="150" height="150px" style="object-fit: cover; margin-right: 10px;" src="'.$image['url'].'" />';
 					}
 					echo '</div>';
 				}

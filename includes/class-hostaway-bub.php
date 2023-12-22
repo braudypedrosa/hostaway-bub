@@ -122,6 +122,9 @@ class Hostaway_Bub {
 			$paths[] = plugin_dir_path( dirname( __FILE__ ) ) . '/acf-json';
 			return $paths;
 		}
+
+		// add elementor extension if Elementor is active
+		include_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/library/hostaway-bub-elementor-extension/hostaway-widgets-extension.php' ); 
 		
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-hostaway-bub-loader.php';
